@@ -1,3 +1,5 @@
+export const unstable_instant = { prefetch: "static" }
+
 import { Suspense } from "react"
 import {
   ActivityIcon,
@@ -16,6 +18,7 @@ import {
 } from "@/components/shared/page-skeletons"
 import { ApiNotice } from "@/components/shared/api-notice"
 import { MetricCard } from "@/components/shared/metric-card"
+import { StatusBadge } from "@/components/shared/status-badge"
 import { SensorMetricsGrid } from "@/components/sensors/sensor-metrics-grid"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { apiGet, dataOr } from "@/lib/api/server"
@@ -216,9 +219,9 @@ async function DashboardContainersSection() {
                     {container.image}
                   </div>
                 </div>
-                <span className="rounded-md bg-emerald-50 px-2 py-1 text-xs text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-300 dark:ring-emerald-900">
+                <StatusBadge tone={container.status === "running" ? "success" : "warning"}>
                   {container.status}
-                </span>
+                </StatusBadge>
               </div>
             ))}
           </div>

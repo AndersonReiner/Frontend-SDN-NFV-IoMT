@@ -76,11 +76,11 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --chart-1: oklch(0.62 0.18 20);
+  --chart-2: oklch(0.68 0.16 150);
+  --chart-3: oklch(0.62 0.16 255);
+  --chart-4: oklch(0.7 0.15 75);
+  --chart-5: oklch(0.6 0.17 310);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -99,6 +99,18 @@
   --warning-foreground: var(--color-yellow-900);
   --invert: var(--color-zinc-900);
   --invert-foreground: var(--color-zinc-50);
+  --group-uti-bg: oklch(0.96 0.03 20);
+  --group-uti-border: oklch(0.88 0.07 20);
+  --group-uti-fg: oklch(0.48 0.18 20);
+  --group-uti-chart: oklch(0.62 0.18 20);
+  --group-enfermaria-bg: oklch(0.97 0.03 155);
+  --group-enfermaria-border: oklch(0.9 0.07 155);
+  --group-enfermaria-fg: oklch(0.47 0.16 155);
+  --group-enfermaria-chart: oklch(0.68 0.16 150);
+  --group-triagem-bg: oklch(0.96 0.02 255);
+  --group-triagem-border: oklch(0.88 0.06 255);
+  --group-triagem-fg: oklch(0.46 0.16 255);
+  --group-triagem-chart: oklch(0.62 0.16 255);
 }
 
 .dark {
@@ -120,11 +132,11 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --chart-1: oklch(0.72 0.15 20);
+  --chart-2: oklch(0.75 0.14 150);
+  --chart-3: oklch(0.73 0.13 255);
+  --chart-4: oklch(0.78 0.13 75);
+  --chart-5: oklch(0.72 0.15 310);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -142,6 +154,18 @@
   --warning-foreground: var(--color-yellow-600);
   --invert: var(--color-zinc-700);
   --invert-foreground: var(--color-zinc-50);
+  --group-uti-bg: oklch(0.27 0.06 20 / 0.45);
+  --group-uti-border: oklch(0.48 0.14 20 / 0.55);
+  --group-uti-fg: oklch(0.82 0.1 20);
+  --group-uti-chart: oklch(0.72 0.15 20);
+  --group-enfermaria-bg: oklch(0.28 0.05 155 / 0.45);
+  --group-enfermaria-border: oklch(0.5 0.11 155 / 0.55);
+  --group-enfermaria-fg: oklch(0.84 0.08 155);
+  --group-enfermaria-chart: oklch(0.75 0.14 150);
+  --group-triagem-bg: oklch(0.27 0.05 255 / 0.45);
+  --group-triagem-border: oklch(0.48 0.11 255 / 0.55);
+  --group-triagem-fg: oklch(0.84 0.07 255);
+  --group-triagem-chart: oklch(0.73 0.13 255);
 }
 
 @layer base {

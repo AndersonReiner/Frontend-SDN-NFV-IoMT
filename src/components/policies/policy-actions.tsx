@@ -4,6 +4,7 @@ import * as React from "react"
 import { ShieldCheckIcon, ShieldOffIcon } from "lucide-react"
 
 import { groupLabel } from "@/config/groups"
+import { StatusBadge } from "@/components/shared/status-badge"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -58,27 +59,27 @@ export function PolicyActions({
             Nao existe endpoint para desativar sensor ou dispositivo individualmente.
           </div>
           <div className="grid gap-3 md:grid-cols-2">
-          {policies.map((policy) => (
-            <div key={policy.key} className="rounded-lg border p-4">
-              <div className="mb-3 flex items-start justify-between gap-3">
-                <div>
-                  <div className="font-medium">{policy.key}</div>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {policy.description}
-                  </p>
+            {policies.map((policy) => (
+              <div key={policy.key} className="rounded-lg border bg-card/60 p-4">
+                <div className="mb-3 flex items-start justify-between gap-3">
+                  <div>
+                    <div className="font-medium">{policy.key}</div>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {policy.description}
+                    </p>
+                  </div>
+                  <Badge variant="outline">{policy.method}</Badge>
                 </div>
-                <Badge variant="outline">{policy.method}</Badge>
+                <Button
+                  variant={policy.action.includes("restore") ? "outline" : "default"}
+                  disabled={pending !== null}
+                  onClick={() => execute(policy)}
+                >
+                  {policy.action.includes("block") ? <ShieldOffIcon /> : <ShieldCheckIcon />}
+                  {pending === policy.key ? "Executando..." : "Executar"}
+                </Button>
               </div>
-              <Button
-                variant={policy.action.includes("restore") ? "outline" : "default"}
-                disabled={pending !== null}
-                onClick={() => execute(policy)}
-              >
-                {policy.action.includes("block") ? <ShieldOffIcon /> : <ShieldCheckIcon />}
-                {pending === policy.key ? "Executando..." : "Executar"}
-              </Button>
-            </div>
-          ))}
+            ))}
           </div>
         </CardContent>
       </Card>
@@ -93,12 +94,20 @@ export function PolicyActions({
               <div key={gateway.container} className="rounded-lg border p-3 text-sm">
                 <div className="font-medium">{groupLabel(gateway.group)}</div>
                 <div className="mt-2 flex flex-wrap gap-2">
-                  <Badge variant="outline">
+                  <StatusBadge
+                    tone={
+                      gateway.policies.bandwidth_limit_active ? "warning" : "success"
+                    }
+                  >
                     banda: {gateway.policies.bandwidth_limit_active ? "limitada" : "normal"}
-                  </Badge>
-                  <Badge variant="outline">
+                  </StatusBadge>
+                  <StatusBadge
+                    tone={
+                      gateway.policies.triage_block_active ? "danger" : "success"
+                    }
+                  >
                     triagem: {gateway.policies.triage_block_active ? "bloqueada" : "liberada"}
-                  </Badge>
+                  </StatusBadge>
                 </div>
               </div>
             ))}
@@ -106,7 +115,7 @@ export function PolicyActions({
         </Card>
 
         {error ? (
-          <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive">
+          <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive dark:bg-destructive/15">
             {error}
           </div>
         ) : null}
@@ -129,12 +138,12 @@ function PolicyResult({ result }: { result: unknown }) {
         {commandResults.map((item) => (
           <div key={`${item.container}-${item.command.join("-")}`} className="rounded-lg border p-3">
             <div className="mb-2 flex items-center gap-2 text-sm">
-              <Badge variant={item.exit_code === 0 ? "secondary" : "destructive"}>
+              <StatusBadge tone={item.exit_code === 0 ? "success" : "danger"}>
                 exit {item.exit_code}
-              </Badge>
+              </StatusBadge>
               <span>{item.container}</span>
             </div>
-            <pre className="max-h-60 overflow-auto rounded-md bg-muted p-3 text-xs">
+            <pre className="max-h-60 overflow-auto rounded-md border bg-muted/40 p-3 text-xs text-foreground/90">
               {item.output || "(sem saida)"}
             </pre>
           </div>

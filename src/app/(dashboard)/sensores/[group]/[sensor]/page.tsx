@@ -18,6 +18,15 @@ import {
 } from "@/lib/format"
 import { ActivityIcon, ArrowLeftIcon, ClockIcon, RadioIcon } from "lucide-react"
 
+export const unstable_instant = {
+  prefetch: "static",
+  samples: [
+    { params: { group: "uti", sensor: "sensor-uti-1" } },
+    { params: { group: "enfermaria", sensor: "sensor-enfermaria-1" } },
+    { params: { group: "triagem", sensor: "sensor-triagem-1" } },
+  ],
+}
+
 type PageProps = {
   params: Promise<{
     group: GroupName

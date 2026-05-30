@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { StatusBadge } from "@/components/shared/status-badge"
 import type { CommandResult } from "@/lib/api/types"
 
 export function GatewayCommandCard({
@@ -14,12 +14,12 @@ export function GatewayCommandCard({
   const content = (
     <>
       <div className="mb-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-        <Badge variant={result.exit_code === 0 ? "secondary" : "destructive"}>
+        <StatusBadge tone={result.exit_code === 0 ? "success" : "danger"}>
           exit {result.exit_code}
-        </Badge>
+        </StatusBadge>
         <span>{result.command.join(" ")}</span>
       </div>
-      <pre className="max-h-80 overflow-auto rounded-lg bg-muted p-3 text-xs leading-relaxed">
+      <pre className="max-h-80 overflow-auto rounded-lg border bg-muted/40 p-3 text-xs leading-relaxed text-foreground/90">
         {result.output || "(sem saida)"}
       </pre>
     </>

@@ -20,8 +20,8 @@ export function LogsBlock({
         <pre
           className={
             compact
-              ? "max-h-80 overflow-auto rounded-lg bg-muted p-3 text-xs leading-relaxed"
-              : "max-h-[520px] overflow-auto rounded-lg bg-muted p-4 text-xs leading-relaxed"
+              ? "max-h-80 overflow-auto rounded-lg border bg-muted/40 p-3 text-xs leading-relaxed text-foreground/90"
+              : "max-h-[520px] overflow-auto rounded-lg border bg-muted/40 p-4 text-xs leading-relaxed text-foreground/90"
           }
         >
           {text || "(sem logs)"}

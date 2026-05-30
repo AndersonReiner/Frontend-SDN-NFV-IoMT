@@ -27,6 +27,15 @@ import type {
 } from "@/lib/api/types"
 import { formatBits, formatMs, formatNumber, formatPercent } from "@/lib/format"
 
+export const unstable_instant = {
+  prefetch: "static",
+  samples: [
+    { params: { group: "uti" } },
+    { params: { group: "enfermaria" } },
+    { params: { group: "triagem" } },
+  ],
+}
+
 type PageProps = {
   params: Promise<{ group: GroupName }>
 }

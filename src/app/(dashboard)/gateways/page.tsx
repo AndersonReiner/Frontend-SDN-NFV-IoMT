@@ -1,3 +1,5 @@
+export const unstable_instant = { prefetch: "static" }
+
 import { Suspense } from "react"
 
 import { GatewayCommandCard } from "@/components/gateways/gateway-command-card"

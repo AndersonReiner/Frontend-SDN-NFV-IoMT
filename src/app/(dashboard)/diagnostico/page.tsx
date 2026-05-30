@@ -11,6 +11,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { apiGet, dataOr } from "@/lib/api/server"
 import type { ContainerInfo, GroupName, GroupRoutes } from "@/lib/api/types"
 
+export const unstable_instant = { prefetch: "static" }
+
 const groups: GroupName[] = ["uti", "enfermaria", "triagem"]
 
 export default function DiagnosticsPage() {

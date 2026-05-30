@@ -1,18 +1,30 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import "./globals.css";
 
-const geistSans = Geist({
+const geistSans = localFont({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  src: [
+    {
+      path: "./fonts/geist-latin.woff2",
+      weight: "100 900",
+      style: "normal",
+    },
+  ],
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  src: [
+    {
+      path: "./fonts/geist-mono-latin.woff2",
+      weight: "100 900",
+      style: "normal",
+    },
+  ],
 });
 
 export const metadata: Metadata = {

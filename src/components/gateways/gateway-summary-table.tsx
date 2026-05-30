@@ -1,4 +1,5 @@
 import { groupLabel } from "@/config/groups"
+import { StatusBadge } from "@/components/shared/status-badge"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -36,9 +37,9 @@ export function GatewaySummaryTable({ gateways }: { gateways: GatewayStatus[] })
                 </TableCell>
                 <TableCell>{gateway.container}</TableCell>
                 <TableCell>
-                  <Badge variant={gateway.running ? "secondary" : "destructive"}>
+                  <StatusBadge tone={gateway.running ? "success" : "danger"}>
                     {gateway.docker_status}
-                  </Badge>
+                  </StatusBadge>
                 </TableCell>
                 <TableCell>{gateway.ip_forward ?? "-"}</TableCell>
                 <TableCell>

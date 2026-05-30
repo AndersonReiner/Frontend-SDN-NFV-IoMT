@@ -1,3 +1,5 @@
+export const unstable_instant = { prefetch: "static" }
+
 import { Suspense } from "react"
 
 import { LogsBlock } from "@/components/logs/logs-block"
