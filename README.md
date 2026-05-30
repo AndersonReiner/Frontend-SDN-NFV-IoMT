@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend SDN/NFV IoMT
 
-## Getting Started
+Aplicacao Next.js para integrar a API FastAPI da simulacao "Rede Hospitalar IoMT com SDN, NFV e API REST".
 
-First, run the development server:
+## Stack
+
+- Next.js App Router
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- shadcn/ui com template `dashboard-01`
+- REUI com registro `@reui` e componentes `data-grid`
+- Base UI
+- Recharts
+- TanStack Query
+
+## Backend Esperado
+
+A API deve estar rodando em:
+
+```text
+http://localhost:8000
+```
+
+Swagger:
+
+```text
+http://localhost:8000/docs
+```
+
+O frontend usa um proxy interno em `/api/backend/[...path]`, porque a API local nao libera CORS para `http://localhost:3000`.
+
+## Configuracao
+
+Crie o `.env.local` a partir do exemplo:
+
+```bash
+cp .env.example .env.local
+```
+
+Variaveis:
+
+```env
+API_BASE_URL=http://localhost:8000
+NEXT_PUBLIC_APP_NAME=SDN NFV IoMT Dashboard
+```
+
+## Executar
+
+Instalar dependencias:
+
+```bash
+npm install
+```
+
+Rodar em desenvolvimento:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Validacao
 
-## Learn More
+```bash
+npm run lint
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Rotas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `/dashboard`: saude geral, containers, gateways, metricas agregadas e sensores clinicos.
+- `/sensores`: leituras recentes e metricas por sensor clinico.
+- `/sensores/[group]/[sensor]`: detalhe de sensor clinico.
+- `/grupos`: grupos hospitalares e sensores associados.
+- `/grupos/[group]`: metricas, rotas e logs do grupo.
+- `/gateways`: status e diagnostico dos gateways VNF.
+- `/politicas`: execucao das politicas VNF disponiveis no backend.
+- `/logs`: logs gerais e logs filtrados por grupo.
+- `/diagnostico`: inventario de containers e rotas.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Documentacao do Planejamento
 
-## Deploy on Vercel
+O escopo e replanejamento ficam em:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+docs/escopo-frontend.md
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+O README original do backend foi preservado como snapshot em:
+
+```text
+docs/backend-readme-snapshot.md
+```
