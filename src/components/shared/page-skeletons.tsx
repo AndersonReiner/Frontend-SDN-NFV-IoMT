@@ -69,6 +69,28 @@ export function ChartSkeleton() {
   )
 }
 
+export function MonitoringChartsSkeleton() {
+  return (
+    <div className="grid gap-4 xl:grid-cols-2">
+      {Array.from({ length: 4 }).map((_, index) => (
+        <div key={index} className="rounded-xl border p-6">
+          <div className="space-y-3">
+            <Skeleton className="h-5 w-44" />
+            <Skeleton className="h-4 w-64" />
+          </div>
+          <div className="mt-6 space-y-4">
+            <Skeleton className="h-[220px] w-full rounded-lg" />
+            <div className="flex items-center justify-between gap-3">
+              <Skeleton className="h-4 w-28" />
+              <Skeleton className="h-4 w-36" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export function DataGridSkeleton({
   titleWidth = "w-44",
   columns = 7,
@@ -160,6 +182,7 @@ export function DashboardLoadingSkeleton() {
     <div className="space-y-4 md:space-y-6">
       <MetricCardsSkeleton />
       <ChartSkeleton />
+      <MonitoringChartsSkeleton />
       <div className="grid gap-4 xl:grid-cols-[1fr_420px]">
         <DataGridSkeleton titleWidth="w-40" columns={8} rows={5} />
         <CardBlockSkeleton titleWidth="w-36" rows={6} />

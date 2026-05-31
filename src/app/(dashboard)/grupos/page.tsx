@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Suspense } from "react"
 
+import { DashboardAutoRefresh } from "@/components/dashboard/dashboard-auto-refresh"
 import { GROUPS, groupLabel } from "@/config/groups"
 import { ApiNotice } from "@/components/shared/api-notice"
 import { CardBlockSkeleton } from "@/components/shared/page-skeletons"
@@ -19,17 +20,20 @@ export const unstable_instant = { prefetch: "static" }
 
 export default function GroupsPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="grid gap-4 lg:grid-cols-3">
-          <CardBlockSkeleton titleWidth="w-28" rows={5} />
-          <CardBlockSkeleton titleWidth="w-28" rows={5} />
-          <CardBlockSkeleton titleWidth="w-28" rows={5} />
-        </div>
-      }
-    >
-      <GroupsGridSection />
-    </Suspense>
+    <>
+      <DashboardAutoRefresh intervalMs={5000} />
+      <Suspense
+        fallback={
+          <div className="grid gap-4 lg:grid-cols-3">
+            <CardBlockSkeleton titleWidth="w-28" rows={5} />
+            <CardBlockSkeleton titleWidth="w-28" rows={5} />
+            <CardBlockSkeleton titleWidth="w-28" rows={5} />
+          </div>
+        }
+      >
+        <GroupsGridSection />
+      </Suspense>
+    </>
   )
 }
 

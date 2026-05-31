@@ -2,6 +2,7 @@ import { Suspense } from "react"
 import { notFound } from "next/navigation"
 import { ActivityIcon, NetworkIcon, RadioIcon, TimerIcon } from "lucide-react"
 
+import { DashboardAutoRefresh } from "@/components/dashboard/dashboard-auto-refresh"
 import { GROUPS, groupLabel } from "@/config/groups"
 import { GatewayCommandCard } from "@/components/gateways/gateway-command-card"
 import { LogsBlock } from "@/components/logs/logs-block"
@@ -46,6 +47,7 @@ export default async function GroupDetailPage({ params }: PageProps) {
 
   return (
     <div className="space-y-4 md:space-y-6">
+      <DashboardAutoRefresh intervalMs={5000} />
       <Suspense fallback={<CardBlockSkeleton titleWidth="w-40" rows={3} />}>
         <GroupHeaderSection group={group} />
       </Suspense>

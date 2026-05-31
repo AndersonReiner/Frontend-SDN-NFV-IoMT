@@ -2,6 +2,7 @@ export const unstable_instant = { prefetch: "static" }
 
 import { Suspense } from "react"
 
+import { DashboardAutoRefresh } from "@/components/dashboard/dashboard-auto-refresh"
 import { GatewayCommandCard } from "@/components/gateways/gateway-command-card"
 import { GatewaySummaryTable } from "@/components/gateways/gateway-summary-table"
 import { ApiNotice } from "@/components/shared/api-notice"
@@ -17,6 +18,7 @@ const groups: GroupName[] = ["uti", "enfermaria", "triagem"]
 export default function GatewaysPage() {
   return (
     <div className="space-y-4 md:space-y-6">
+      <DashboardAutoRefresh intervalMs={5000} />
       <Suspense fallback={<DataGridSkeleton titleWidth="w-36" columns={5} rows={4} />}>
         <GatewaysSummarySection />
       </Suspense>

@@ -2,6 +2,7 @@ export const unstable_instant = { prefetch: "static" }
 
 import { Suspense } from "react"
 
+import { DashboardAutoRefresh } from "@/components/dashboard/dashboard-auto-refresh"
 import { LogsBlock } from "@/components/logs/logs-block"
 import { ApiNotice } from "@/components/shared/api-notice"
 import { LogsSkeleton } from "@/components/shared/page-skeletons"
@@ -13,6 +14,7 @@ const groups: GroupName[] = ["uti", "enfermaria", "triagem"]
 export default function LogsPage() {
   return (
     <div className="space-y-4 md:space-y-6">
+      <DashboardAutoRefresh intervalMs={5000} />
       <Suspense fallback={<LogsSkeleton columns={1} />}>
         <ServerLogsSection />
       </Suspense>

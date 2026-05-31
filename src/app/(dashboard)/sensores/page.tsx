@@ -1,5 +1,6 @@
 import { Suspense } from "react"
 
+import { DashboardAutoRefresh } from "@/components/dashboard/dashboard-auto-refresh"
 import { SensorMetricsGrid } from "@/components/sensors/sensor-metrics-grid"
 import { SensorReadingCards } from "@/components/sensors/sensor-reading-cards"
 import { ApiNotice } from "@/components/shared/api-notice"
@@ -22,17 +23,20 @@ function flattenSensors(collection: SensorMetricsCollection): SensorMetrics[] {
 
 export default function SensorsPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="space-y-4 md:space-y-6">
-          <MetricCardsSkeleton count={3} />
-          <CardBlockSkeleton titleWidth="w-56" rows={6} />
-          <DataGridSkeleton titleWidth="w-52" columns={8} rows={5} />
-        </div>
-      }
-    >
-      <SensorsContent />
-    </Suspense>
+    <>
+      <DashboardAutoRefresh intervalMs={5000} />
+      <Suspense
+        fallback={
+          <div className="space-y-4 md:space-y-6">
+            <MetricCardsSkeleton count={3} />
+            <CardBlockSkeleton titleWidth="w-56" rows={6} />
+            <DataGridSkeleton titleWidth="w-52" columns={8} rows={5} />
+          </div>
+        }
+      >
+        <SensorsContent />
+      </Suspense>
+    </>
   )
 }
 

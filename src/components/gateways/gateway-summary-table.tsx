@@ -47,10 +47,14 @@ export function GatewaySummaryTable({ gateways }: { gateways: GatewayStatus[] })
                     {gateway.policies.bandwidth_limit_active ? (
                       <Badge variant="outline">limitacao ativa</Badge>
                     ) : null}
+                    {gateway.policies.network_emulation_active ? (
+                      <Badge variant="outline">netem ativo</Badge>
+                    ) : null}
                     {gateway.policies.triage_block_active ? (
                       <Badge variant="outline">triagem bloqueada</Badge>
                     ) : null}
                     {!gateway.policies.bandwidth_limit_active &&
+                    !gateway.policies.network_emulation_active &&
                     !gateway.policies.triage_block_active ? (
                       <span className="text-muted-foreground">sem politica ativa</span>
                     ) : null}

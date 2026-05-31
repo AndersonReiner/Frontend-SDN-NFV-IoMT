@@ -1,6 +1,7 @@
 import { Suspense } from "react"
 import { ExternalLinkIcon } from "lucide-react"
 
+import { DashboardAutoRefresh } from "@/components/dashboard/dashboard-auto-refresh"
 import { GatewayCommandCard } from "@/components/gateways/gateway-command-card"
 import { ApiNotice } from "@/components/shared/api-notice"
 import {
@@ -18,6 +19,7 @@ const groups: GroupName[] = ["uti", "enfermaria", "triagem"]
 export default function DiagnosticsPage() {
   return (
     <div className="space-y-4 md:space-y-6">
+      <DashboardAutoRefresh intervalMs={5000} />
       <DiagnosticsHeader />
 
       <Suspense fallback={<CardBlockSkeleton titleWidth="w-28" rows={8} />}>

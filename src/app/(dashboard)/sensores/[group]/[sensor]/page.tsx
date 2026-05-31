@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+import { DashboardAutoRefresh } from "@/components/dashboard/dashboard-auto-refresh"
 import { GROUPS, groupLabel } from "@/config/groups"
 import { ApiNotice } from "@/components/shared/api-notice"
 import { MetricCard } from "@/components/shared/metric-card"
@@ -43,6 +44,7 @@ export default async function SensorDetailPage({ params }: PageProps) {
   if (!result.ok) {
     return (
       <>
+        <DashboardAutoRefresh intervalMs={5000} />
         <Button
           variant="outline"
           nativeButton={false}
@@ -61,6 +63,7 @@ export default async function SensorDetailPage({ params }: PageProps) {
 
   return (
     <>
+      <DashboardAutoRefresh intervalMs={5000} />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <div className="mb-2 flex items-center gap-2">
