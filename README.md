@@ -1,65 +1,106 @@
 # Frontend SDN/NFV IoMT
 
-Aplicacao Next.js para integrar a API FastAPI da simulacao "Rede Hospitalar IoMT com SDN, NFV e API REST".
+Aplicacao web para operacao e observabilidade da simulacao hospitalar IoMT com SDN e NFV. O projeto consome a API backend da atividade e apresenta visoes de rede, sensores, gateways, politicas e diagnostico operacional em uma interface unica.
+
+## Objetivo da aplicacao
+
+O frontend foi estruturado para acompanhar o estado da simulacao em tempo real e expor os principais fluxos operacionais:
+
+- saude geral do ambiente
+- trafego e metricas por grupo hospitalar
+- leituras e historico de sensores clinicos
+- estado dos gateways VNF
+- execucao de politicas de rede
+- diagnostico de containers, rotas e logs
 
 ## Stack
 
-- Next.js App Router
+- Next.js 16 com App Router
 - React 19
 - TypeScript
 - Tailwind CSS 4
-- shadcn/ui com template `dashboard-01`
-- REUI com registro `@reui` e componentes `data-grid`
+- shadcn/ui
 - Base UI
+- REUI Data Grid
 - Recharts
 - TanStack Query
 
-## Backend Esperado
+## Arquitetura
 
-A API deve estar rodando em:
+O projeto segue uma separacao simples entre rotas, componentes de interface e camada de acesso ao backend:
+
+- `src/app`: rotas, layouts e handlers HTTP do App Router
+- `src/components`: blocos visuais reutilizaveis por dominio
+- `src/lib`: integracoes, tipos e utilitarios
+- `src/config`: metadados de grupos e configuracoes de exibicao
+- `public`: ativos estaticos
+
+### Fluxo de dados
+
+1. O backend da simulacao responde em `API_BASE_URL`.
+2. O frontend usa `src/app/api/backend/[...path]/route.ts` como proxy interno.
+3. A camada `src/lib/api` centraliza tipos e chamadas server-side.
+4. As paginas do dashboard consomem esses dados e distribuem para cards, tabelas e graficos.
+
+Essa abordagem reduz acoplamento direto entre as telas e a API, facilita evolucao da tipagem e evita expor a aplicacao a problemas locais de CORS durante o desenvolvimento.
+
+## Estrutura funcional
+
+As principais areas da aplicacao sao:
+
+- `/dashboard`: visao executiva com indicadores agregados e monitoramento geral
+- `/sensores`: leitura recente, metricas e detalhe por sensor
+- `/grupos`: consolidado por grupo hospitalar e paginas detalhadas
+- `/gateways`: estado dos gateways e acoes operacionais
+- `/politicas`: acionamento das politicas disponiveis no backend
+- `/logs`: acompanhamento de eventos e saidas operacionais
+- `/diagnostico`: inventario tecnico do ambiente monitorado
+
+## Estrutura de pastas
 
 ```text
-http://localhost:8000
+src/
+  app/
+    (dashboard)/
+    api/backend/[...path]/
+  components/
+    dashboard/
+    gateways/
+    logs/
+    policies/
+    sensors/
+    shared/
+    ui/
+  config/
+  hooks/
+  lib/
+    api/
 ```
 
-Swagger:
+## Configuracao local
 
-```text
-http://localhost:8000/docs
-```
-
-O frontend usa um proxy interno em `/api/backend/[...path]`, porque a API local nao libera CORS para `http://localhost:3000`.
-
-## Configuracao
-
-Crie o `.env.local` a partir do exemplo:
-
-```bash
-cp .env.example .env.local
-```
-
-Variaveis:
+Crie um arquivo `.env.local` na raiz do projeto com as variaveis abaixo:
 
 ```env
 API_BASE_URL=http://localhost:8000
 NEXT_PUBLIC_APP_NAME=SDN NFV IoMT Dashboard
 ```
 
-## Executar
+## Execucao
 
-Instalar dependencias:
+Instalacao:
 
 ```bash
 npm install
 ```
 
-Rodar em desenvolvimento:
+Desenvolvimento:
 
 ```bash
 npm run dev
 ```
 
-Acesse:
+Aplicacao local:
 
 ```text
 http://localhost:3000
@@ -72,28 +113,16 @@ npm run lint
 npm run build
 ```
 
-## Rotas
+## Backend esperado
 
-- `/dashboard`: saude geral, containers, gateways, metricas agregadas e sensores clinicos.
-- `/sensores`: leituras recentes e metricas por sensor clinico.
-- `/sensores/[group]/[sensor]`: detalhe de sensor clinico.
-- `/grupos`: grupos hospitalares e sensores associados.
-- `/grupos/[group]`: metricas, rotas e logs do grupo.
-- `/gateways`: status e diagnostico dos gateways VNF.
-- `/politicas`: execucao das politicas VNF disponiveis no backend.
-- `/logs`: logs gerais e logs filtrados por grupo.
-- `/diagnostico`: inventario de containers e rotas.
-
-## Documentacao do Planejamento
-
-O escopo e replanejamento ficam em:
+Por padrao, o frontend espera o backend em:
 
 ```text
-docs/escopo-frontend.md
+http://localhost:8000
 ```
 
-O README original do backend foi preservado como snapshot em:
+Documentacao da API:
 
 ```text
-docs/backend-readme-snapshot.md
+http://localhost:8000/docs
 ```
