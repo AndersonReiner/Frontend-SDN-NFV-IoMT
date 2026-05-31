@@ -17,6 +17,9 @@ import {
 } from "@/components/ui/sidebar"
 import { Skeleton } from "@/components/ui/skeleton"
 
+/**
+ * Layout comum das rotas operacionais com sidebar, cabecalho e area principal.
+ */
 export default function DashboardLayout({
   children,
 }: Readonly<{
@@ -46,6 +49,9 @@ export default function DashboardLayout({
   )
 }
 
+/**
+ * Placeholder da sidebar usado enquanto a navegacao principal e carregada.
+ */
 function AppSidebarFallback({
   variant,
 }: {

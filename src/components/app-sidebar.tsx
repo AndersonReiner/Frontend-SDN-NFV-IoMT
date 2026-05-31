@@ -37,6 +37,9 @@ const navItems = [
   { title: "Diagnostico", href: "/diagnostico", icon: ClipboardListIcon },
 ]
 
+/**
+ * Sidebar principal da aplicacao, com navegacao operacional e atalho para o Swagger.
+ */
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
 

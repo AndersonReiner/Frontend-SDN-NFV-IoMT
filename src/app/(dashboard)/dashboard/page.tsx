@@ -30,6 +30,9 @@ import type {
 } from "@/lib/api/types"
 import { formatNumber } from "@/lib/format"
 
+/**
+ * Pagina principal do dashboard operacional da simulacao.
+ */
 export default function DashboardPage() {
   return (
     <div className="space-y-4 md:space-y-6">
@@ -49,6 +52,9 @@ export default function DashboardPage() {
   )
 }
 
+/**
+ * Secao server-side que consolida os indicadores globais do ambiente.
+ */
 async function DashboardMetricsSection() {
   const [health, status, gateways, traffic, timeseriesStats] = await Promise.all([
     apiGet<HealthResponse>("/health"),
@@ -110,6 +116,9 @@ async function DashboardMetricsSection() {
   )
 }
 
+/**
+ * Secao server-side que lista os containers monitorados pelo backend.
+ */
 async function DashboardContainersSection() {
   const containers = await apiGet<ContainerInfo[]>("/containers")
   const containerData = dataOr(containers, [])

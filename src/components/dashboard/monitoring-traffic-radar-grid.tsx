@@ -41,6 +41,9 @@ const chartConfig = {
   value: { label: "Score", color: "var(--chart-2)" },
 } satisfies ChartConfig
 
+/**
+ * Formata o valor bruto exibido no tooltip de acordo com o atributo do radar.
+ */
 function formatMetricValue(metric: string, value: number) {
   switch (metric) {
     case "packet_loss_percent":
@@ -58,6 +61,9 @@ function formatMetricValue(metric: string, value: number) {
   }
 }
 
+/**
+ * Renderiza um radar por grupo para comparar metricas de trafego heterogeneas.
+ */
 export function MonitoringTrafficRadarGrid({
   title,
   description,
@@ -79,6 +85,9 @@ export function MonitoringTrafficRadarGrid({
   )
 }
 
+/**
+ * Card individual do radar de um grupo hospitalar.
+ */
 function TrafficRadarCard({ groupData }: { groupData: GroupRadarSeries }) {
   return (
     <Card>

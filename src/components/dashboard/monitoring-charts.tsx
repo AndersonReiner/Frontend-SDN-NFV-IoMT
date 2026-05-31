@@ -25,6 +25,9 @@ type TimestampBucket = Partial<Record<GroupName, { sum: number; count: number }>
 const GROUP_KEYS: GroupName[] = ["uti", "enfermaria", "triagem"]
 const RECENT_WINDOW_MINUTES = 30
 
+/**
+ * Formata o timestamp usado no eixo X dos graficos de monitoramento.
+ */
 function formatChartTime(value: string) {
   return new Intl.DateTimeFormat("pt-BR", {
     hour: "2-digit",
@@ -32,16 +35,25 @@ function formatChartTime(value: string) {
   }).format(new Date(value))
 }
 
+/**
+ * Calcula a media do bucket agregado para um grupo em um instante.
+ */
 function averageBucket(bucket?: { sum: number; count: number }) {
   if (!bucket || !bucket.count) return null
   return bucket.sum / bucket.count
 }
 
+/**
+ * Retorna a soma acumulada do bucket agregado para um grupo em um instante.
+ */
 function sumBucket(bucket?: { sum: number; count: number }) {
   if (!bucket || !bucket.count) return null
   return bucket.sum
 }
 
+/**
+ * Define a janela recente de consulta historica a partir da ultima captura persistida.
+ */
 function buildRecentWindowSince(lastCapture: string | null) {
   if (!lastCapture) return null
 
@@ -52,6 +64,9 @@ function buildRecentWindowSince(lastCapture: string | null) {
   return capturedAt.toISOString()
 }
 
+/**
+ * Agrega series por timestamp e grupo para alimentar os graficos do dashboard.
+ */
 function buildTrendRows(series: SensorSeries[], mode: "average" | "sum"): GroupTrendRow[] {
   const buckets = new Map<string, TimestampBucket>()
 
@@ -78,6 +93,9 @@ function buildTrendRows(series: SensorSeries[], mode: "average" | "sum"): GroupT
     }))
 }
 
+/**
+ * Converte metricas de trafego em fatias para o grafico de distribuicao por grupo.
+ */
 function buildTrafficSlices(traffic: TrafficMetrics): DonutSlice[] {
   return GROUP_KEYS.map((group) => ({
     key: group,
@@ -87,6 +105,9 @@ function buildTrafficSlices(traffic: TrafficMetrics): DonutSlice[] {
   }))
 }
 
+/**
+ * Classifica um snapshot de sensor em faixas operacionais usadas pelo donut de saude.
+ */
 function classifySnapshot(snapshot: SensorMetricsSnapshot) {
   const avgDelay = snapshot.avg_delay_ms ?? 0
   const maxDelay = snapshot.max_delay_ms ?? 0
@@ -100,6 +121,9 @@ function classifySnapshot(snapshot: SensorMetricsSnapshot) {
   return "healthy"
 }
 
+/**
+ * Resume a distribuicao de saude dos sensores mais recentes.
+ */
 function buildHealthSlices(snapshots: SensorMetricsSnapshot[]): DonutSlice[] {
   const totals = snapshots.reduce(
     (acc, snapshot) => {
@@ -135,6 +159,9 @@ function buildHealthSlices(snapshots: SensorMetricsSnapshot[]): DonutSlice[] {
   ]
 }
 
+/**
+ * Normaliza valores heterogeneos em uma escala 0-100 para comparacao visual.
+ */
 function normalizeMetricRow(values: Record<GroupName, number>) {
   const max = Math.max(values.uti, values.enfermaria, values.triagem, 0)
   if (max <= 0) {
@@ -152,6 +179,9 @@ function normalizeMetricRow(values: Record<GroupName, number>) {
   }
 }
 
+/**
+ * Monta a estrutura do radar de trafego preservando valor bruto e score normalizado.
+ */
 function buildTrafficRadarGroups(traffic: TrafficMetrics) {
   const attributes = [
     { key: "packet_loss_percent", label: "Perda" },
@@ -190,6 +220,9 @@ function buildTrafficRadarGroups(traffic: TrafficMetrics) {
   }))
 }
 
+/**
+ * Secao server-side do dashboard responsavel por monitoramento temporal e comparativo.
+ */
 export async function MonitoringChartsSection() {
   const stats = await apiGet<TimeseriesStats>("/timeseries/stats")
   const statsData = dataOr(stats, {

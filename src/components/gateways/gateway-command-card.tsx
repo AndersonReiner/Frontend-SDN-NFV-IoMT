@@ -2,6 +2,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { StatusBadge } from "@/components/shared/status-badge"
 import type { CommandResult } from "@/lib/api/types"
 
+/**
+ * Renderiza a saida textual de um comando executado pelo backend para um gateway.
+ */
 export function GatewayCommandCard({
   title,
   result,

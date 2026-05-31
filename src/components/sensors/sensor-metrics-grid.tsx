@@ -33,6 +33,9 @@ import {
   formatReading,
 } from "@/lib/format"
 
+/**
+ * Data grid com navegacao para o detalhe do sensor e metricas recentes consolidadas.
+ */
 export function SensorMetricsGrid({
   sensors,
   compact = false,

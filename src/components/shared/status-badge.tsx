@@ -3,6 +3,9 @@ import type { ReactNode } from "react"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
+/**
+ * Badge semantico padronizado para estados de saude, alerta e erro.
+ */
 export function StatusBadge({
   children,
   tone = "neutral",

@@ -1,5 +1,8 @@
 import type { GroupName } from "@/lib/api/types"
 
+/**
+ * Metadados visuais e operacionais utilizados em toda a interface para cada grupo.
+ */
 export const GROUPS: Record<
   GroupName,
   {
@@ -36,6 +39,9 @@ export const GROUPS: Record<
   },
 }
 
+/**
+ * Resolve um rotulo amigavel para os identificadores dos grupos.
+ */
 export function groupLabel(group: string) {
   return GROUPS[group as GroupName]?.label ?? group
 }

@@ -97,6 +97,9 @@ const NETEM_DEFAULTS = {
 
 const GROUP_ORDER: GroupName[] = ["uti", "enfermaria", "triagem"]
 
+/**
+ * Painel operacional de politicas fixas e parametrizadas, com execucao e feedback.
+ */
 export function PolicyActions({
   fixedPolicies,
   runtimeFamilies,
@@ -315,6 +318,9 @@ export function PolicyActions({
   )
 }
 
+/**
+ * Grid das politicas fixas anunciadas diretamente pelo endpoint `/policies`.
+ */
 function PolicyFixedGrid({
   policies,
   pendingKey,
@@ -443,6 +449,9 @@ function PolicyFixedGrid({
   )
 }
 
+/**
+ * Grid das politicas parametrizadas inferidas dinamicamente do OpenAPI.
+ */
 function PolicyRuntimeGrid({
   routes,
   pendingKey,
@@ -588,6 +597,9 @@ function PolicyRuntimeGrid({
   )
 }
 
+/**
+ * Drawer lateral usado para editar o payload de politicas parametrizadas.
+ */
 function PolicyRouteSheet({
   open,
   onOpenChange,
@@ -704,6 +716,9 @@ function PolicyRouteSheet({
   )
 }
 
+/**
+ * Campo padrao para edicao de parametros no drawer de politicas.
+ */
 function Field({
   label,
   description,
@@ -722,6 +737,9 @@ function Field({
   )
 }
 
+/**
+ * Exibe o resultado normalizado da ultima execucao de politica.
+ */
 function PolicyResult({ result }: { result: unknown }) {
   const commandResults = normalizeResult(result)
 
@@ -752,6 +770,9 @@ function PolicyResult({ result }: { result: unknown }) {
   )
 }
 
+/**
+ * Normaliza o retorno bruto da execucao para uma lista uniforme de comandos.
+ */
 function normalizeResult(result: unknown): CommandResult[] {
   if (isCommandResult(result)) return [result]
   if (result && typeof result === "object") {
@@ -760,6 +781,9 @@ function normalizeResult(result: unknown): CommandResult[] {
   return []
 }
 
+/**
+ * Type guard para detectar objetos compativeis com `CommandResult`.
+ */
 function isCommandResult(value: unknown): value is CommandResult {
   return (
     value !== null &&
@@ -771,6 +795,9 @@ function isCommandResult(value: unknown): value is CommandResult {
   )
 }
 
+/**
+ * Converte o draft textual do formulario para o payload exigido pela rota escolhida.
+ */
 function buildPayload(route: ExecutionRoute, draft?: BodyDraft) {
   if (!route.body_kind || !draft) return undefined
 
@@ -792,6 +819,9 @@ function buildPayload(route: ExecutionRoute, draft?: BodyDraft) {
   }
 }
 
+/**
+ * Inicializa o formulario com defaults coerentes para cada familia de politica.
+ */
 function createDraft(route: ExecutionRoute): BodyDraft {
   if (route.body_kind === "tbf") {
     return { ...TBF_DEFAULTS }
@@ -804,6 +834,9 @@ function createDraft(route: ExecutionRoute): BodyDraft {
   return {}
 }
 
+/**
+ * Extrai a mensagem de erro mais relevante da resposta HTTP da execucao.
+ */
 function extractError(body: unknown, status: number) {
   if (body && typeof body === "object" && "detail" in body) {
     const detail = (body as { detail?: unknown }).detail
@@ -814,6 +847,9 @@ function extractError(body: unknown, status: number) {
   return `HTTP ${status}`
 }
 
+/**
+ * Resolve um titulo amigavel para as politicas fixas conhecidas do backend.
+ */
 function labelFixedPolicy(policy: PolicyEndpoint) {
   switch (policy.action) {
     case "limit":
@@ -831,6 +867,9 @@ function labelFixedPolicy(policy: PolicyEndpoint) {
   }
 }
 
+/**
+ * Mapeia a acao textual do backend para a uniao usada pela interface.
+ */
 function normalizeAction(action: string): PolicyRoute["action"] {
   switch (action) {
     case "limit":

@@ -12,6 +12,9 @@ import {
 } from "@/components/ui/table"
 import type { GatewayStatus } from "@/lib/api/types"
 
+/**
+ * Resume o estado atual dos gateways VNF e das politicas detectadas em cada grupo.
+ */
 export function GatewaySummaryTable({ gateways }: { gateways: GatewayStatus[] }) {
   return (
     <Card>

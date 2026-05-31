@@ -1,5 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
+/**
+ * Bloco reutilizavel para renderizar logs textuais em formato monoespacado.
+ */
 export function LogsBlock({
   title,
   logs,

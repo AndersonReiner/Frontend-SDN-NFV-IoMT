@@ -1,5 +1,8 @@
 import { Skeleton } from "@/components/ui/skeleton"
 
+/**
+ * Placeholder para grades de KPIs no topo das paginas.
+ */
 export function MetricCardsSkeleton({ count = 4 }: { count?: number }) {
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -19,6 +22,9 @@ export function MetricCardsSkeleton({ count = 4 }: { count?: number }) {
   )
 }
 
+/**
+ * Placeholder generico para cards em bloco com lista interna.
+ */
 export function CardBlockSkeleton({
   titleWidth = "w-40",
   rows = 5,
@@ -47,6 +53,9 @@ export function CardBlockSkeleton({
   )
 }
 
+/**
+ * Placeholder para um grafico simples de barras ou serie temporal.
+ */
 export function ChartSkeleton() {
   return (
     <div className="rounded-xl border p-6">
@@ -69,6 +78,9 @@ export function ChartSkeleton() {
   )
 }
 
+/**
+ * Placeholder para a secao composta de monitoramento do dashboard.
+ */
 export function MonitoringChartsSkeleton() {
   return (
     <div className="grid gap-4 xl:grid-cols-2">
@@ -91,6 +103,9 @@ export function MonitoringChartsSkeleton() {
   )
 }
 
+/**
+ * Placeholder para tabelas e data grids paginados.
+ */
 export function DataGridSkeleton({
   titleWidth = "w-44",
   columns = 7,
@@ -139,6 +154,9 @@ export function DataGridSkeleton({
   )
 }
 
+/**
+ * Placeholder para cards de logs textuais.
+ */
 export function LogsSkeleton({ columns = 1 }: { columns?: number }) {
   return (
     <div
@@ -164,6 +182,9 @@ export function LogsSkeleton({ columns = 1 }: { columns?: number }) {
   )
 }
 
+/**
+ * Placeholder para cabecalhos de paginas de detalhe.
+ */
 export function DetailHeaderSkeleton() {
   return (
     <div className="flex flex-wrap items-start justify-between gap-3">
@@ -177,6 +198,9 @@ export function DetailHeaderSkeleton() {
   )
 }
 
+/**
+ * Estrutura de loading da home operacional do dashboard.
+ */
 export function DashboardLoadingSkeleton() {
   return (
     <div className="space-y-4 md:space-y-6">
@@ -192,6 +216,9 @@ export function DashboardLoadingSkeleton() {
   )
 }
 
+/**
+ * Estrutura de loading usada nas demais paginas de detalhe.
+ */
 export function GenericPageLoadingSkeleton() {
   return (
     <div className="space-y-4 md:space-y-6">

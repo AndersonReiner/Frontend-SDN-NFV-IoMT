@@ -126,3 +126,9 @@ Documentacao da API:
 ```text
 http://localhost:8000/docs
 ```
+
+## Documentacao adicional
+
+- [Aplicacao](./docs/aplicacao.md)
+- [Arquitetura](./docs/arquitetura.md)
+- [Rotas e contratos](./docs/rotas-e-contratos.md)

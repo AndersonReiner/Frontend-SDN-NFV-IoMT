@@ -1,5 +1,8 @@
 import type { ApiResult } from "@/lib/api/types"
 
+/**
+ * Exibe um aviso padrao quando uma chamada ao backend falha.
+ */
 export function ApiNotice<T>({ result }: { result: ApiResult<T> }) {
   if (result.ok) return null
 

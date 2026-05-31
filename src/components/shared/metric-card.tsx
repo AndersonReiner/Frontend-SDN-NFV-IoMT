@@ -9,6 +9,9 @@ import {
 } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
+/**
+ * Card compacto para exibicao de um KPI operacional com contexto visual.
+ */
 export function MetricCard({
   title,
   value,

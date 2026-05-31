@@ -1,14 +1,29 @@
+/**
+ * Identificadores canonicos dos grupos hospitalares monitorados pela simulacao.
+ */
 export type GroupName = "uti" | "enfermaria" | "triagem"
 
+/**
+ * Resultado padronizado das chamadas ao backend.
+ *
+ * O frontend trabalha com esta uniao discriminada para evitar `throw`
+ * durante a renderizacao das paginas e permitir fallbacks parciais.
+ */
 export type ApiResult<T> =
   | { ok: true; data: T }
   | { ok: false; status?: number; message: string; detail?: unknown }
 
+/**
+ * Resposta do endpoint de saude da API.
+ */
 export type HealthResponse = {
   status: string
   docker: string
 }
 
+/**
+ * Resumo do projeto Docker Compose monitorado pelo backend.
+ */
 export type StatusResponse = {
   project: string
   total_containers: number
@@ -16,6 +31,9 @@ export type StatusResponse = {
   services: Record<string, string>
 }
 
+/**
+ * Metadados de um container individual retornado pelo backend.
+ */
 export type ContainerInfo = {
   name: string
   service: string
@@ -24,6 +42,9 @@ export type ContainerInfo = {
   id: string
 }
 
+/**
+ * Resultado textual de um comando executado no contexto de um gateway ou sensor.
+ */
 export type CommandResult = {
   container: string
   command: string[]
@@ -31,12 +52,18 @@ export type CommandResult = {
   output: string
 }
 
+/**
+ * Sinais operacionais de politicas conhecidas pelo backend para um gateway.
+ */
 export type GatewayPolicyStatus = {
   bandwidth_limit_active: boolean
   triage_block_active: boolean
   network_emulation_active: boolean
 }
 
+/**
+ * Estado operacional de um gateway VNF associado a um grupo hospitalar.
+ */
 export type GatewayStatus = {
   group: GroupName
   container: string
@@ -50,12 +77,18 @@ export type GatewayStatus = {
   policies: GatewayPolicyStatus
 }
 
+/**
+ * Mapeamento estatico de um grupo, seu gateway e seus sensores.
+ */
 export type GroupInfo = {
   group: GroupName
   gateway: string
   sensors: string[]
 }
 
+/**
+ * Metricas agregadas de trafego por grupo, derivadas do parser do backend.
+ */
 export type GroupMetrics = {
   group: GroupName
   messages: number
@@ -70,6 +103,9 @@ export type GroupMetrics = {
   packet_loss_percent: number
 }
 
+/**
+ * Estatisticas agregadas de um campo presente nas leituras de sensor.
+ */
 export type ReadingFieldStats = {
   samples: number
   min: number | null
@@ -78,6 +114,9 @@ export type ReadingFieldStats = {
   last: number | string | null
 }
 
+/**
+ * Consolidado operacional de um sensor clinico individual.
+ */
 export type SensorMetrics = {
   group: GroupName
   sensor: string
@@ -102,6 +141,9 @@ export type SensorMetrics = {
   reading_stats: Record<string, ReadingFieldStats>
 }
 
+/**
+ * Colecao de metricas por grupo e por sensor, conforme retornada pelo backend.
+ */
 export type SensorMetricsCollection = {
   source: string
   parsed_lines: number
@@ -109,6 +151,9 @@ export type SensorMetricsCollection = {
   groups: Partial<Record<GroupName, Record<string, SensorMetrics>>>
 }
 
+/**
+ * Colecao de metricas agregadas de trafego por grupo.
+ */
 export type TrafficMetrics = {
   source: string
   parsed_lines: number
@@ -116,6 +161,9 @@ export type TrafficMetrics = {
   groups: Partial<Record<GroupName, GroupMetrics>>
 }
 
+/**
+ * Metadados da base temporal persistida localmente pelo backend.
+ */
 export type TimeseriesStats = {
   db_path: string
   ingest_enabled: boolean
@@ -128,21 +176,33 @@ export type TimeseriesStats = {
   distinct_sensors: number
 }
 
+/**
+ * Lista de metricas historicas disponiveis no backend.
+ */
 export type TimeseriesMetricsResponse = {
   metrics: string[]
 }
 
+/**
+ * Ponto individual de uma serie temporal.
+ */
 export type SeriesPoint = {
   t: string
   v: number | null
 }
 
+/**
+ * Serie temporal de um sensor especifico dentro de um grupo.
+ */
 export type SensorSeries = {
   group: GroupName
   sensor: string
   points: SeriesPoint[]
 }
 
+/**
+ * Resposta de uma consulta historica para uma metrica especifica.
+ */
 export type TimeseriesSeries = {
   metric: string
   since: string | null
@@ -150,6 +210,9 @@ export type TimeseriesSeries = {
   series: SensorSeries[]
 }
 
+/**
+ * Snapshot persistido da ultima coleta consolidada de um sensor.
+ */
 export type SensorMetricsSnapshot = {
   id: number
   captured_at: string
@@ -177,6 +240,9 @@ export type SensorMetricsSnapshot = {
   reading_stats: Record<string, ReadingFieldStats> | null
 }
 
+/**
+ * Envelope de paginacao para snapshots persistidos.
+ */
 export type PaginatedSnapshots = {
   total: number
   limit: number
@@ -185,12 +251,18 @@ export type PaginatedSnapshots = {
   items: SensorMetricsSnapshot[]
 }
 
+/**
+ * Resultado de diagnostico de rotas para um grupo.
+ */
 export type GroupRoutes = {
   group: GroupName
   gateway: CommandResult
   sensors: Record<string, CommandResult>
 }
 
+/**
+ * Endpoint de politica fixo anunciado pelo backend.
+ */
 export type PolicyEndpoint = {
   key: string
   method: string
@@ -205,8 +277,14 @@ export type PolicyEndpoint = {
   status_endpoint: string
 }
 
+/**
+ * Tipos de corpo de requisicao suportados para politicas dinamicas.
+ */
 export type PolicyRouteKind = "tbf" | "netem" | null
 
+/**
+ * Estrutura intermediaria usada pelo frontend para compor uma rota dinamica de politica.
+ */
 export type PolicyRouteDraft = {
   group: GroupName
   action: "limit" | "limit_clear" | "netem" | "netem_clear"
@@ -218,6 +296,9 @@ export type PolicyRouteDraft = {
   status_endpoint: string
 }
 
+/**
+ * Rota de politica pronta para execucao pela interface.
+ */
 export type PolicyRoute = {
   key: string
   group: GroupName
@@ -232,6 +313,9 @@ export type PolicyRoute = {
   status_endpoint: string
 }
 
+/**
+ * Familia de politicas complementares para um grupo: aplicar e limpar.
+ */
 export type PolicyFamily = {
   group: GroupName
   title: string
@@ -245,8 +329,14 @@ export type PolicyFamily = {
   clear: PolicyRoute
 }
 
+/**
+ * Indice de politicas fixas expostas pelo backend.
+ */
 export type PoliciesResponse = Record<string, PolicyEndpoint>
 
+/**
+ * Resposta de endpoints de log textual.
+ */
 export type LogsResponse = {
   container?: string
   group?: GroupName
@@ -254,10 +344,16 @@ export type LogsResponse = {
   logs: string | string[]
 }
 
+/**
+ * Formato simplificado de erro emitido pela FastAPI.
+ */
 export type FastApiError = {
   detail?: string | { msg: string }[]
 }
 
+/**
+ * Fragmento do OpenAPI suficiente para descobrir operacoes de politica.
+ */
 export type OpenApiOperation = {
   summary?: string
   description?: string
@@ -272,6 +368,9 @@ export type OpenApiOperation = {
   responses?: Record<string, unknown>
 }
 
+/**
+ * Recorte minimo da especificacao OpenAPI consumido pela tela de politicas.
+ */
 export type OpenApiSpec = {
   paths: Record<string, Record<string, OpenApiOperation>>
   components?: {

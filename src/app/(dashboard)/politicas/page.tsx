@@ -16,6 +16,9 @@ import type {
   PoliciesResponse,
 } from "@/lib/api/types"
 
+/**
+ * Pagina operacional para descoberta e execucao das politicas de rede.
+ */
 export default function PoliciesPage() {
   return (
     <Suspense
@@ -31,6 +34,9 @@ export default function PoliciesPage() {
   )
 }
 
+/**
+ * Carrega as politicas fixas, o estado dos gateways e o contrato OpenAPI vivo.
+ */
 async function PoliciesContent() {
   const [policies, gateways, openapi] = await Promise.all([
     apiGet<PoliciesResponse>("/policies"),
@@ -63,6 +69,9 @@ async function PoliciesContent() {
 
 const GROUPS = ["uti", "enfermaria", "triagem"] as const
 
+/**
+ * Constrói familias de politicas dinamicas por grupo a partir do OpenAPI ativo.
+ */
 function buildPolicyFamilies(
   spec: OpenApiSpec,
   gateways: Record<string, GatewayStatus>
@@ -82,6 +91,9 @@ function buildPolicyFamilies(
   })
 }
 
+/**
+ * Gera a familia de limitacao de banda quando as rotas TBF estao disponiveis.
+ */
 function buildLimitFamily(
   spec: OpenApiSpec,
   group: (typeof GROUPS)[number],
@@ -122,6 +134,9 @@ function buildLimitFamily(
   }
 }
 
+/**
+ * Gera a familia de emulacao de rede quando as rotas netem estao disponiveis.
+ */
 function buildNetemFamily(
   spec: OpenApiSpec,
   group: (typeof GROUPS)[number],
@@ -165,6 +180,9 @@ function buildNetemFamily(
   }
 }
 
+/**
+ * Finaliza uma rota de politica com metadados padrao usados pela interface.
+ */
 function buildPolicyRoute(route: PolicyRouteDraft): PolicyRoute {
   return {
     ...route,

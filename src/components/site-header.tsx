@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { ExternalLinkIcon } from "lucide-react"
 
+/**
+ * Cabecalho persistente do dashboard com controle da sidebar, tema e link externo.
+ */
 export function SiteHeader() {
   return (
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">

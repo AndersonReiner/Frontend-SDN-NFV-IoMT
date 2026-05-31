@@ -32,6 +32,9 @@ export const metadata: Metadata = {
   description: "Dashboard operacional para a rede hospitalar IoMT com SDN/NFV",
 };
 
+/**
+ * Layout raiz da aplicacao, responsavel por fontes, tema, tooltips e notificacoes.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

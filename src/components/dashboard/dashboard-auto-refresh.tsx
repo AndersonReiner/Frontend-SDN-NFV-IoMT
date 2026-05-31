@@ -3,6 +3,9 @@
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 
+/**
+ * Revalida a rota atual em intervalo fixo enquanto a aba estiver visivel.
+ */
 export function DashboardAutoRefresh({ intervalMs = 5000 }: { intervalMs?: number }) {
   const router = useRouter()
 
